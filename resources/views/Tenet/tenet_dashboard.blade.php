@@ -56,7 +56,7 @@ body {
       <div class="menu-button">
         <!-- <i class="fa fa-navicon"></i> -->
       </div>
-      <div class="nav">
+      <div class="nav" >
         <ul >
           <li class="nav-mail">
           @php

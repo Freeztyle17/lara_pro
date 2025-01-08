@@ -20,7 +20,7 @@
         }
 
         body {
-            background: rgba(72, 177, 86, 0.92);
+            background: #FFFFFF;
             height: 100%;
         }
     </style>
