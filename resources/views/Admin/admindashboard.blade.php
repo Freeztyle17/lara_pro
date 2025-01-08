@@ -36,7 +36,7 @@ body {
 
 }
 
-.state-overview .value h1, .state-overview .value p  {
+.state-overview .value h1, .state-overview .value {
     margin: 0;
     padding: 0;
     color: #c6cad6;
@@ -79,6 +79,9 @@ body {
     background: #57c8f2;
 }
 
+.desc {
+    color: #0b0b0b;
+}
     </style>
 
 </head>
@@ -89,24 +92,24 @@ body {
   <div id="sidebar-nav" style="background-color: black;">
     <div class="col-md-12" style="margin-top:30px; padding-bottom:30px;">
     <div class="profileimg">
-      <img  title="Profile Image" style="    width: 120px; height:100px; margin-bottom: 20px; margin-left:22px;" src="{{asset('profile')}}/{{Illuminate\Support\Facades\Auth::user()->profile_img}}" alt="">
-      <a href="#" id="profile" style="padding-left: 40px;">Profile img</a>    <br>
+      <img  title="Profile Image" style="    width: 120px; height:100px; margin-bottom: 20px; margin-left:22px;" src={{asset('sourceimg/profile/admin.jpg')}} alt="">
+      <br>
       <span style="color:white; margin-left:24px">{{Illuminate\Support\Facades\Auth::user()->adminrelation->first_name}}</span> <span style="color:red">{{Illuminate\Support\Facades\Auth::user()->adminrelation->last_name}}</span>
       </div>
     </div>
     <ul>
       <li class="active"><a href="{{route('admin_dashboard')}}"><i class="fa fa-dashboard"></i>Краткая информация</a></li>
-        <li><a href="{{route('tenet_info')}}"><i class="fa fa-info"></i> Все брони</a></li>
+      <li><a href="{{route('tenet_info')}}"><i class="fa fa-info"></i> Все брони</a></li>
 {{--      <li><a href="{{route('advisor_info')}}"><i class="fa fa-info"></i> Advisor Info</a></li>--}}
       <li><a href="{{route('advisor_upgrade')}}"><i class="fa fa-bookmark"></i> Работа с бронями </a></li>
-      <li><a href="{{route('admin_profile')}}"><i class="fa fa-user"></i> Profile</a></li>
-      <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+      <li><a href="{{route('admin_profile')}}"><i class="fa fa-user"></i> Профиль</a></li>
+      <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Выйти</a></li>
     </ul>
   </div>
 </section>
 <section id="content">
   <div id="header">
-    <div class="header-nav" style="background-color: blue;">
+    <div class="header-nav" style="background-color: black;">
       <div class="menu-button">
         <!-- <i class="fa fa-navicon"></i> -->
       </div>
@@ -122,41 +125,47 @@ body {
       </div>
     </div>
   </div>
-<div class="content" style="margin-top:5%">
-  <div class="row state-overview">
-        <div class="col-lg-6 col-sm-6">
-            <section class="panel">
-                <div class="symbol terques">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="value">
-                    <h3 class="count">{{App\Booking::all()->where('status','=','pending')->count()}}</h3>
-                    <p>Ожидающих к рассмотрению брони</p>
-                </div>
-            </section>
+    <div class="content" style="margin-top:5%">
+        <div class="row state-overview">
+            <!-- Ожидающие брони -->
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <section class="panel d-flex flex-column align-items-center">
+                    <div class="symbol terques">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="value d-flex flex-column text-center">
+                        <h3 class="count">{{ App\Booking::all()->where('status','=','pending')->count() }}</h3>
+                        <p class="desc">Ожидающих к рассмотрению брони</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Подтвержденные брони -->
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <section class="panel d-flex flex-column align-items-center">
+                    <div class="symbol terques">
+                        <i class="fa fa-calendar-check-o"></i>
+                    </div>
+                    <div class="value d-flex flex-column text-center">
+                        <h3 class="count">{{ App\Booking::all()->where('status','=','confirmed')->count() }}</h3>
+                        <p class="desc">Подтвержденные брони</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Отмененные брони -->
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <section class="panel d-flex flex-column align-items-center">
+                    <div class="symbol terques">
+                        <i class="fa fa-warning"></i>
+                    </div>
+                    <div class="value d-flex flex-column text-center">
+                        <h3 class="count">{{ App\Booking::all()->where('status','=','cancelled')->count() }}</h3>
+                        <p class="desc">Отмененные брони</p>
+                    </div>
+                </section>
+            </div>
         </div>
-        <div class="col-lg-6 col-sm-6">
-            <section class="panel">
-                <div class="symbol terques">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="value">
-                    <h3 class="count">{{App\Booking::all()->where('status','=','confirmed')->count()}}</h3>
-                    <p>Подтвержденные брони</p>
-                </div>
-            </section>
-        </div>
-      <div class="col-lg-6 col-sm-6">
-          <section class="panel">
-              <div class="symbol terques">
-                  <i class="fa fa-user"></i>
-              </div>
-              <div class="value">
-                  <h3 class="count">{{App\Booking::all()->where('status','=','cancelled')->count()}}</h3>
-                  <p>Отмененные брони</p>
-              </div>
-          </section>
-      </div>
     </div>
 
 

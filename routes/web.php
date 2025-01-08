@@ -31,6 +31,8 @@ Route::post('Dashboard','Advisor\RegisterForAdvisorController@login')->name('log
 Route::get('TenetForm','Tenet\RegisterForTenetController@signup')->name('signuptenet');
 Route::post('TenetRegister','Tenet\RegisterForTenetController@registerfortenet')->name('registerfortenet');
 Route::get('dashboard','Tenet\Tenet_Dashboard_controller@dashboard_view')->name('tenet_dashboard_view');
+//Route::get('userServices','Tenet\Tenet_UserServices_controller@userServices_view')->name('tenet_user_services_view');
+Route::get('userServices','ReservationController@showBookings')->name('tenet_user_services_view');
 
 Route::get('tenet_profile','Tenet\Tenet_Profile_Controller@tenet_profile')->name('tenet_profile');
 Route::get('conversation','Tenet\Tenet_Conversation_Controller@tenet_conversation')->name('tenet_conversation');
@@ -48,6 +50,9 @@ Route::post('readunseenmessage','MessageController@readunseenmessage')->name('re
 
 //Route::get('','TransportController@transport_view')->name('tenet_transport_view');
 Route::get('tenet_transport_view', 'TransportController@showRates')->name('tenet_transport_view');
+Route::get('tenet_safety_select_view', 'Tenet\Tenet_safety_controller@showSafes')->name('tenet_safety_select_view');
+Route::post('tenet_safety_select_view/save_safety_select', 'Tenet\Tenet_safety_controller@storeSafeSelection')->name('save_safety_select');
+Route::get('/warehouses', [WarehouseController::class, 'index'])->name('warehouses.index');
 
 // Route For Admin
 Route::get('Admin','Admin\RegisterForAdminController@signup')->name('signupadmin');
@@ -84,7 +89,7 @@ Route::get('warehouse-district/{id}/warehouses', [WarehouseDistrictController::c
 use App\Http\Controllers\TransportController;
 
 
-Route::post('/transport/ship', [TransportController::class, 'ship'])->name('transport.ship');
+Route::post('/transport/ship', 'TransportController@ship')->name('transport.ship');
 
 use App\Models\Warehouse;
 use App\Conservation;

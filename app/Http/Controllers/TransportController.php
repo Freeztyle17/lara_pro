@@ -32,27 +32,24 @@ class TransportController extends Controller
 
     public function ship(Request $request)
     {
-        $request->validate([
-            'slot_id' => 'required|exists:slots,id',
-            'destination' => 'required|string|max:255',
-            'rate_type' => 'required|in:city,region,country',
-        ]);
 
         $rateCost = [
             'city' => 1000,
             'region' => 5000,
             'country' => 15000,
-        ][$request->rate_type];
+        ][$request->get('rate_type')];
 
         // Логика оформления транспортировки
         Transport::create([
             'user_id' => auth()->id(),
-            'slot_id' => $request->slot_id,
-            'destination' => $request->destination,
+            'slot_id' => $request->get('slot_id'), // Прямо передаем ID слота
+            'destination' => $request->get('destination'), // Прямо передаем строку адреса
             'cost' => $rateCost,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
-        return redirect()->route('transport.rates')->with('success', 'Транспортировка оформлена успешно!');
+        return back()->with('success', 'Транспортировка оформлена успешно!');
     }
 
     public function transport_view() {

@@ -2270,7 +2270,6 @@ a {
   width: 106%;
   height: calc(100% - 95px);
   padding: 0;
-  background: #2A2D33;
   /*border-right: 1px solid #E0E0E0;*/
   overflow-y: hidden;
 }
@@ -2330,7 +2329,7 @@ a {
   width: calc(100% - 210px);
   height: 100%;
   word-wrap: break-word;
-  background: #FFFFFF;
+  background: #E9EEF4;
   font-family: Raleway, sans-serif;
 }
 

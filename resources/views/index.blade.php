@@ -95,39 +95,6 @@
 	</section>
 	<!-- Hero section end -->
 
-	<!-- Filter form section -->
-	<div class="filter-search" style="background-color: blue">
-		<div class="container" style="background-color: black">
-			<form class="filter-form" action="{{route('search_property')}}" method="post">
-			@csrf
-{{--				<input style="width:29%;" type="text" name="rent" placeholder="">--}}
-                <select style="width:35%" name="type">
-                    <option value="">Тип услуги</option>
-                    <option value="Quartal">Квартал</option>
-                    <option value="Zone">Зона</option>
-                    <option value="Warehouse">Хранилище</option>
-                    <option value="Slot">Ячейки</option>
-                </select>
-{{--				<input style="width:29%;" type="text" name="c_name" placeholder="Город">--}}
-                <select style="width:35%" name="city">
-                    <option value="">Город</option>
-                    <option value="Moscow">Москва</option>
-                    <option value="Saratov">Саратов</option>
-                    <option value="Volgograd">Волгоград</option>
-                    <option value="Penza">Пенза</option>
-                </select>
-{{--				<select name="state">--}}
-{{--				<option value="">-</option>--}}
-{{--					<option value="Punjab">Kabankalan</option>--}}
-{{--					<option value="Sindh">Bacolod</option>--}}
-{{--					<option value="Kpk">Binalbagan</option>--}}
-{{--					<option value="Blochistan">Hinigaran</option>--}}
-{{--				</select>--}}
-				<button type="submit" class="site-btn fs-submit">ПОИСК</button>
-			</form>
-		</div>
-	</div>
-	<!-- Filter form section end -->
 
 	<!-- feature category section -->
 	<section class="feature-category-section spad">
@@ -139,19 +106,19 @@
 			<div class="row">
 				<div class="col-lg-3 col-md-6 f-cata">
 					<img src="img/feature-cate/1.jpg" alt="">
-					<h5>Складские кварталы</h5>
+					<h5>Ячейки</h5>
 				</div>
 				<div class="col-lg-3 col-md-6 f-cata">
 					<img src="img/feature-cate/2.jpg" alt="">
-					<h5>Складские зоны</h5>
+					<h5>Ячейки побольше</h5>
 				</div>
 				<div class="col-lg-3 col-md-6 f-cata">
 					<img src="img/feature-cate/3.jpg" alt="">
-					<h5>Хранилища</h5>
+					<h5>Огромные ячейки</h5>
 				</div>
 				<div class="col-lg-3 col-md-6 f-cata">
 					<img src="img/feature-cate/4.jpg" alt="">
-					<h5>Ячейки</h5>
+					<h5>Маленькие ячейки</h5>
 				</div>
 			</div>
 		</div>

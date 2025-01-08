@@ -191,6 +191,7 @@
 
     <div class="form-container">
         <form>
+            <h3>Выберите даты для брони помещения</h3>
             <div class="row justify-content-center">
                 <div class="col-md-3">
                     <label for="startDate">Дата начала:</label>
@@ -201,7 +202,7 @@
                     <input type="date" id="endDate" name="end_date" class="form-control" required>
                 </div>
                 <div class="col-md-2 align-self-end">
-                    <button type="button" id="filterButton" class="btn btn-primary mt-3">Обновить</button>
+                    <button type="button" id="filterButton" class="btn btn-primary mt-3">Фильтр по датам</button>
                 </div>
             </div>
         </form>
@@ -209,6 +210,9 @@
 
             @csrf
             <input type="hidden" name="slots" id="selectedSlots">
+            <input type="hidden" name="start_date" id="hiddenStartDate">
+            <input type="hidden" name="end_date" id="hiddenEndDate">
+
             <div class="btn-container">
                 <button type="submit" id="bookButton" class="btn btn-success mt-3" disabled>Забронировать</button>
             </div>
@@ -243,7 +247,7 @@
 
             @foreach($slots->groupBy('row')->sortKeys() as $row => $slotsInRow)
                 @if($row % 2 == 0 && $row > 0)
-                    <div class="road"></div> <!-- Дорожка между каждыми двумя рядами -->
+                    <div class="road"></div>
                 @endif
 
                 <div class="warehouse-row">
@@ -257,7 +261,6 @@
                             id="slot-{{ $slot->id }}"
                             data-slot-id="{{ $slot->id }}">
                             <span>C-{{ $slot->row }}-{{ $slot->column }}</span>
-                            <!-- Воротина -->
                             <div class="{{ $row % 2 == 0 ? 'gate-top' : 'gate-bottom' }}"></div>
                         </div>
                     @endforeach
@@ -273,36 +276,66 @@
     </div>
 
 </div>
+
+
 <script>
     let selectedSlots = [];
+    // Получаем текущую дату в формате YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0];
+
+    // Устанавливаем минимальную дату для поля "startDate" и "endDate"
+    document.getElementById('startDate').setAttribute('min', today);
+    document.getElementById('endDate').setAttribute('min', today);
+
 
     document.querySelectorAll('.warehouse-slot').forEach(slot => {
         slot.addEventListener('click', function () {
+            // Получаем текущие выбранные даты
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
 
-
-
+            // Проверка, что слот не забронирован
             if (slot.classList.contains('warehouse-booked')) return; // Забронированные слоты нельзя выбирать
 
             let slotId = slot.getAttribute('data-slot-id');
 
+            // Изменяем статус слота
             if (slot.classList.contains('warehouse-free')) {
                 slot.classList.remove('warehouse-free');
                 slot.classList.add('warehouse-selected');
                 selectedSlots.push(slotId);
-
-
             } else if (slot.classList.contains('warehouse-selected')) {
                 slot.classList.remove('warehouse-selected');
                 slot.classList.add('warehouse-free');
                 selectedSlots = selectedSlots.filter(id => id !== slotId);
-
             }
 
+            // Обновляем состояние кнопки "Забронировать"
             document.getElementById('bookButton').disabled = selectedSlots.length === 0;
             document.getElementById('selectedSlots').value = selectedSlots.join(',');
-
-            console.log(selectedSlots)
         });
+    });
+
+    // Обработчик кнопки "Забронировать"
+    document.getElementById('bookButton').addEventListener('click', function (e) {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        // Проверка, что выбраны обе даты
+        if (!startDate || !endDate) {
+            e.preventDefault(); // Предотвращаем отправку формы
+            alert('Пожалуйста, выберите даты перед бронированием!');
+            return;
+        }
+
+        // Если даты выбраны, скрытые поля с датами обновляются
+        document.getElementById('hiddenStartDate').value = startDate;
+        document.getElementById('hiddenEndDate').value = endDate;
+
+        // Далее можно продолжить обработку формы (например, отправить данные на сервер)
+        console.log("Слоты для бронирования:", selectedSlots);
+        console.log("Дата начала:", startDate);
+        console.log("Дата окончания:", endDate);
     });
 
     document.getElementById('filterButton').addEventListener('click', function () {

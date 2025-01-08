@@ -33,23 +33,18 @@
     <div id="sidebar-nav" style="background-color: black;">
         <div class="col-md-12" style="margin-top:30px; padding-bottom:30px;">
             <div class="profileimg">
-                <a href="#"><img title="Profile Image"
-                                 style="    width: 120px; height:100px; margin-bottom: 20px; margin-left:22px;"
-                                 src="{{asset('profile')}}/{{Illuminate\Support\Facades\Auth::user()->profile_img}}"
-                                 alt=""></a>
-                <span
-                    style="color:white; margin-left:24px">{{Illuminate\Support\Facades\Auth::user()->adminrelation->first_name}}</span>
-                <span style="color:red">{{Illuminate\Support\Facades\Auth::user()->adminrelation->last_name}}</span>
+                <img  title="Profile Image" style="    width: 120px; height:100px; margin-bottom: 20px; margin-left:22px;" src={{asset('sourceimg/profile/admin.jpg')}} alt="">
+                <br>
+                <span style="color:white; margin-left:24px">{{Illuminate\Support\Facades\Auth::user()->adminrelation->first_name}}</span> <span style="color:red">{{Illuminate\Support\Facades\Auth::user()->adminrelation->last_name}}</span>
             </div>
         </div>
         <ul>
             <li><a href="{{route('admin_dashboard')}}"><i class="fa fa-dashboard"></i>Краткая информация</a></li>
             <li><a href="{{route('tenet_info')}}"><i class="fa fa-info"></i> Все брони</a></li>
             {{--      <li><a href="{{route('advisor_info')}}"><i class="fa fa-info"></i> Advisor Info</a></li>--}}
-            <li class="active"><a href="{{route('advisor_upgrade')}}"><i class="fa fa-bookmark"></i> Работа с бронями
-                </a></li>
-            <li><a href="{{route('admin_profile')}}"><i class="fa fa-user"></i> Profile</a></li>
-            <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+            <li  class="active"><a href="{{route('advisor_upgrade')}}"><i class="fa fa-bookmark"></i> Работа с бронями </a></li>
+            <li><a href="{{route('admin_profile')}}"><i class="fa fa-user"></i> Профиль</a></li>
+            <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Выйти</a></li>
         </ul>
     </div>
 </section>

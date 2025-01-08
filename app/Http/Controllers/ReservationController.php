@@ -11,9 +11,22 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
+    public function showBookings()
+    {
+        // Получаем все бронирования для текущего пользователя
+        $userBookings = Booking::where('user_id', auth()->id())
+            ->with('slot.warehouse') // Подгружаем склады через слот
+            ->paginate(10);
+
+        return view('Tenet.tenet_user_services', compact('userBookings'));
+    }
+
     public function reserve(Request $request)
     {
         $slotIds = explode(',', $request->get('slots'));
+        $slotsStartDate = $request->get('start_date');
+        $slotsEndDate = $request->get('end_date');
+
 
         $slots = Slot::whereIn('id', $slotIds)->get();
         foreach ($slots as $slot) {
@@ -25,8 +38,8 @@ class ReservationController extends Controller
             Booking::create([
                 'slot_id' => $slot->id,
                 'user_id' => Auth::id(),
-                'start_date' => now(),
-                'end_date' => now(),
+                'start_date' => $slotsStartDate,
+                'end_date' => $slotsEndDate,
             ]);
         }
 

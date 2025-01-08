@@ -26,29 +26,30 @@ body {
 
 </head>
 <body>
-<section id="sidebar"> 
+<section id="sidebar">
   <div class="white-label" style="background-color: black;">
-  </div> 
-  <div id="sidebar-nav" style="background-color: black;"> 
+  </div>
+    <div id="sidebar-nav" style="background-color: black;">
     <div class="col-md-12" style="margin-top:30px; padding-bottom:30px;">
-    <div class="profileimg">
-      <a href="#" ><img  title="Profile Image" style="    width: 120px; height:100px; margin-bottom: 20px; margin-left:22px;" src="{{asset('profile')}}/{{Illuminate\Support\Facades\Auth::user()->profile_img}}" alt=""></a>
-      <span style="color:white; margin-left:24px">{{Illuminate\Support\Facades\Auth::user()->adminrelation->first_name}}</span> <span style="color:red">{{Illuminate\Support\Facades\Auth::user()->adminrelation->last_name}}</span>
-      </div>
+        <div class="profileimg">
+            <img  title="Profile Image" style="    width: 120px; height:100px; margin-bottom: 20px; margin-left:22px;" src={{asset('sourceimg/profile/admin.jpg')}} alt="">
+            <br>
+            <span style="color:white; margin-left:24px">{{Illuminate\Support\Facades\Auth::user()->adminrelation->first_name}}</span> <span style="color:red">{{Illuminate\Support\Facades\Auth::user()->adminrelation->last_name}}</span>
+        </div>
     </div>
     <ul>
-      <li ><a href="{{route('admin_dashboard')}}"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-      <li ><a href="{{route('tenet_info')}}"><i class="fa fa-info"></i> Tenant Info</a></li>
-      <li ><a href="{{route('advisor_info')}}"><i class="fa fa-info"></i> Advisor Info</a></li>
-      <li ><a href="{{route('advisor_upgrade')}}"><i class="fa fa-thumbs-up"></i> Advisor Upgradation</a></li>
-      <li class="active"><a href="{{route('admin_profile')}}"><i class="fa fa-user"></i> Profile</a></li>
-      <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+        <li><a href="{{route('admin_dashboard')}}"><i class="fa fa-dashboard"></i>Краткая информация</a></li>
+        <li><a href="{{route('tenet_info')}}"><i class="fa fa-info"></i> Все брони</a></li>
+        {{--      <li><a href="{{route('advisor_info')}}"><i class="fa fa-info"></i> Advisor Info</a></li>--}}
+        <li><a href="{{route('advisor_upgrade')}}"><i class="fa fa-bookmark"></i> Работа с бронями </a></li>
+        <li class="active"><a href="{{route('admin_profile')}}"><i class="fa fa-user"></i> Профиль</a></li>
+        <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Выйти</a></li>
     </ul>
-  </div>
+    </div>
 </section>
 <section id="content">
   <div id="header">
-    <div class="header-nav" style="background-color: blue;">
+    <div class="header-nav" style="background-color: black;">
       <div class="menu-button">
         <!-- <i class="fa fa-navicon"></i> -->
       </div>
@@ -78,12 +79,12 @@ body {
               </div>
               <!--Grid column-->
           </div>
-          <!--Grid row--> 
+          <!--Grid row-->
   </div>
 </div>
 <!-- Modal Login -->
 
-	
+
   <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog form-dark" role="document">
@@ -131,7 +132,7 @@ body {
           </div>
           <!--Grid row-->
 		  </form>
-         
+
         </div>
       </div>
     </div>
@@ -148,10 +149,10 @@ body {
 	<script src="{{asset('js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('js/main.js')}}"></script>
 	<!-- smodel script -->
-<script> 
+<script>
 		$('#update_button').on('click', function() {
-    //  alert("hello"); 
-     $('#login').modal('show');  
+    //  alert("hello");
+     $('#login').modal('show');
       });
 </script>
 </body>

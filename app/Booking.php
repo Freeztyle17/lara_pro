@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Warehouse;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
@@ -16,5 +17,10 @@ class Booking extends Model
     public function slot()
     {
         return $this->belongsTo(Slot::class);
+    }
+
+    public function warehouse()
+    {
+        return $this->slot->warehouse(); // Используем связь с Slot для получения Warehouse
     }
 }

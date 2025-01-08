@@ -9,6 +9,11 @@ class Slot extends Model
 {
     protected $fillable = ['warehouse_id', 'row', 'column', 'status'];
 
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class);
