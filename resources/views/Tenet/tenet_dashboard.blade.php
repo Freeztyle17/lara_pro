@@ -81,50 +81,55 @@ body {
 <div class="content">
   <div class="content-header" style="background-color: rgba(99, 211, 113, 0.92)">
   <section class="page-section categories-page">
-		<div class="container">
-			<div class="row">
-			@foreach(\App\Models\Warehouse::all() as $postdata)
-				<div class="col-lg-4 col-md-6" >
-					<!-- feature -->
-					<div class="feature-item border border-secondary rounded shadow-sm">
-                        <div class="feature-pic set-bg" style="background-image: url('{{ asset('sourceimg/post/' . $postdata->img_numb) }}');">
-                        </div>
-						<div class="feature-text">
-{{--							<div class="text-center feature-title">--}}
-{{--								<p><i class="fa fa-map-marker"></i> {{$postdata->address}}</p>--}}
-{{--							</div>--}}
-							<div class="room-info-warp" style="background-color: #FFFFFF">
-								<div class="room-info"><div class="rf-left">
-										<p><i class="fa fa-th-large"></i>{{$postdata->name}} </p>
-
-										<p><i class="fa fa-compass"></i>{{$postdata->address}} </p>
-                                        <p><i class="fa fa-arrow-circle-o-up"></i>{{$postdata->size}}</p>
-									</div>
-								</div>
-								<div class="room-info">
-									<div class="rf-left">
-                                        <p><i class="fa fa-map-marker"></i>{{$postdata->city}} </p>
-									</div>
-									<div class="rf-right">
-										<p><i class="fa fa-clock-o"></i> {{$postdata->created_at->diffForHumans()}}</p>
-									</div>
-								</div>
-                                <button
-                                    type="button"
-                                    class="btn btn-primary btn-sm w-100 mt-3 mb-3"
+  <div class="filter-section">
+    <form action="{{ route('warehouses.index') }}" method="GET">
+        <div class="form-group">
+            <label for="city">Выберите город</label>
+            <select name="city" id="city" class="form-control">
+                <option value="">Все города</option>
+                @foreach(\App\Models\Warehouse::distinct()->pluck('city') as $city)
+                    <option value="{{ $city }}" {{ request('city') == $city ? 'selected' : '' }}>{{ $city }}</option>
+                @endforeach
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Фильтровать</button>
+    </form>
+  </div>
+  <div class="container">
+    <div class="row">
+        @foreach($warehouses as $postdata)
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-item border border-secondary rounded shadow-sm">
+                    <div class="feature-pic set-bg" style="background-image: url('{{ asset('sourceimg/post/' . $postdata->img_numb) }}');">
+                    </div>
+                    <div class="feature-text">
+                        <div class="room-info-warp" style="background-color: #FFFFFF">
+                            <div class="room-info">
+                                <div class="rf-left">
+                                    <p><i class="fa fa-th-large"></i>{{ $postdata->name }}</p>
+                                    <p><i class="fa fa-compass"></i>{{ $postdata->address }}</p>
+                                    <p><i class="fa fa-arrow-circle-o-up"></i>{{ $postdata->size }}</p>
+                                </div>
+                            </div>
+                            <div class="room-info">
+                                <div class="rf-left">
+                                    <p><i class="fa fa-map-marker"></i>{{ $postdata->city }}</p>
+                                </div>
+                                <div class="rf-right">
+                                    <p><i class="fa fa-clock-o"></i> {{ $postdata->created_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm w-100 mt-3 mb-3"
                                     onclick="window.location.href='{{ route('district.warehouses', $postdata->id) }}'">
-                                    Подробнее
-                                </button>
-							</div>
-{{--                            <a href="{{route('inbox',$postdata->advisor->user->id)}}" class="room-price">₱{{$postdata->rent}}</a>--}}
-						</div>
-
-					</div>
-				</div>
-
-			@endforeach
-			</div>
-		</div>
+                                Подробнее
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+  </div>
 	</section>
 	<!-- page end -->
   </div>
